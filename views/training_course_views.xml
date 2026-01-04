@@ -1,0 +1,186 @@
+<odoo>
+
+    <!-- Action -->
+    <record id="action_training_courses" model="ir.actions.act_window">
+        <field name="name">Courses</field>
+        <field name="res_model">training.course</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+    <!-- Menu root -->
+    <menuitem id="menu_training_root"
+              name="Training" />
+
+    <!-- Submenu -->
+    <menuitem id="menu_training_courses"
+              name="Courses"
+              parent="menu_training_root"
+              action="action_training_courses" />
+
+    <!-- List kanban -->
+    <record id="view_training_course_kanban" model="ir.ui.view">
+        <field name="name">training.course.kanban</field>
+        <field name="model">training.course</field>
+        <field name="arch" type="xml">
+   
+	
+            <kanban class="o_kanban_small_column">
+
+                <field name="name"/>
+                <field name="state"/>
+                <field name="duration_days"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="color"/>
+
+                <templates>
+                  <t t-name="kanban-box"> 
+
+                      <div t-att-class="'o_kanban_card o_kanban_color_' + record.color">  
+
+                            <div class="o_kanban_header">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                            </div>
+
+                        <div class="o_kanban_body">
+                   
+                              <div>
+                                  <span>Estado: </span>
+                                  <field name="state"/>
+                              </div>
+
+                                  
+                           
+
+                            <div>
+                                <span>Duración: </span>
+                                <field name="duration_days"/>
+                                <span> días</span>
+                            </div>
+
+                            <div>
+                                <span>Inicio: </span>
+                                <field name="start_date"/>
+                            </div>
+
+                            <div>
+                                <span>Fin: </span>
+                                <field name="end_date"/>
+                            </div>
+
+                            <div>
+                                <span>Alumnos: </span>
+                                <strong>
+                                    <field name="student_count"/>
+                                </strong>
+                            </div>
+
+
+                        </div>
+
+                        <div class="o_kanban_footer">
+
+                            <button class="oe_kanban_action oe_kanban_button btn btn-primary"
+                                    name="action_set_active"
+                                    type="object"
+                                    modifiers="{'invisible': [['state','!=','draft']]}">
+                                Activar
+                            </button>
+
+                            <button class="oe_kanban_action oe_kanban_button btn btn-secondary"
+                                    name="action_set_archived"
+                                    type="object"
+                                    modifiers="{'invisible': [['state','!=','active']]}">
+                                Archivar
+                            </button>
+
+                        </div>
+
+                                        
+
+                    </div>
+                  </t>
+                </templates>
+
+            </kanban>
+        </field>
+    </record>
+
+
+    <!-- List view -->
+    <record id="view_training_course_list" model="ir.ui.view">
+        <field name="name">training.course.list</field>
+        <field name="model">training.course</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="duration_hours"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="view_training_course_form" model="ir.ui.view">
+        <field name="name">training.course.form</field>
+        <field name="model">training.course</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+   <!--lo siguiente es para colocar estados (borrador,activo,archivado)-->
+         
+		     <header>
+                        <field name="state" widget="statusbar"/>
+
+                        <button name="action_set_draft"
+                                string="Borrador"
+                                type="object"
+                                modifiers="active,archived"/>
+
+                        <button name="action_set_active"
+                                string="Activar"
+                                type="object"
+                                modifiers="draft"/>
+
+                        <button name="action_set_archived"
+                                string="Archivar"
+                                type="object"
+                                modifiers="active"/>
+		     </header>
+
+<!--#lo siguiente es para la duracion de horas y demas-->
+
+                    <group>
+                        <field name="name"/>
+                        <field name="duration_hours"/>
+                        <field name="active"/>
+                    </group>
+		    <group>
+   	                <field name="start_date"/>
+   		        <field name="end_date"/>
+    		        <field name="duration_days" readonly="1"/>
+                    </group>
+
+
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page string="Alumnos">
+                            <field name="student_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="course_id" invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

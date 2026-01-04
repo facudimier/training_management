@@ -1,0 +1,31 @@
+<odoo>
+    #Vista List
+    <record id="view_training_student_list" model="ir.ui.view">
+        <field name="name">training.student.list</field>
+        <field name="model">training.student</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="course_id"/>
+            </list>
+        </field>
+    </record>
+  #Vista Form
+    <record id="view_training_student_form" model="ir.ui.view">
+        <field name="name">training.student.form</field>
+        <field name="model">training.student</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="email"/>
+                        <field name="course_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

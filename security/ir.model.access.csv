@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id,perm_read,perm_write,perm_create,perm_unlink
+access_training_course_user,access_training_course_user,model_training_course,,1,1,1,1
+
+access_training_student_user,access_training_student_user,model_training_student,,1,1,1,1
