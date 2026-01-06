@@ -46,9 +46,15 @@
 
                         <div class="o_kanban_body">
                    
-                              <div>
-                                  <span>Estado: </span>
-                                  <field name="state"/>
+                              <div class="d-flex justify-content-between align-items-baseline">
+                                  <span>Estado:</span>
+
+                                  
+                                  <field name="state"
+                                         widget="label_selection"
+                                         options="{'classes': {'draft': 'info', 'active': 'success', 'archived': 'secondary'}}"/>
+                                  
+                                     
                               </div>
 
                                   
